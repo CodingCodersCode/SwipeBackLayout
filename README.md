@@ -3,6 +3,7 @@ SwipeBackLayout
 
 An Android library that help you to build app with swipe back gesture.
 
+说明：本项目为fork[SwipeBackLayout](https://github.com/ikew0ng/SwipeBackLayout)原项目，并结合[网文](https://segmentfault.com/a/1190000002977515)中对4.0-5.0+设备兼容方式的描述，作出对应的修改，并发布compile(implementation)依赖，除此之外的一切权利和权益均归属两位作者，谢谢！
 
 ![](https://github.com/Issacw0ng/SwipeBackLayout/blob/master/art/screenshot.png?raw=true)
 
