@@ -60,6 +60,8 @@ public class Utils {
      */
     public static void convertActivityToTranslucentBeforeL(Activity activity) {
         try {
+            /*
+            //原项目
             Class<?>[] classes = Activity.class.getDeclaredClasses();
             Class<?> translucentConversionListenerClazz = null;
             for (Class clazz : classes) {
@@ -73,6 +75,30 @@ public class Utils {
             method.invoke(activity, new Object[] {
                 null
             });
+            */
+
+            //根据[https://segmentfault.com/a/1190000002977515]描述内容所做修改，兼容4.0-5.0+设备
+            Class[] t = Activity.class.getDeclaredClasses();
+            Class translucentConversionListenerClazz = null;
+            Class[] method = t;
+            int len$ = t.length;
+
+            for(int i$ = 0; i$ < len$; ++i$) {
+                Class clazz = method[i$];
+                if(clazz.getSimpleName().contains("TranslucentConversionListener")) {
+                    translucentConversionListenerClazz = clazz;
+                    break;
+                }
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Method var8 = Activity.class.getDeclaredMethod("convertToTranslucent", translucentConversionListenerClazz, ActivityOptions.class);
+                var8.setAccessible(true);
+                var8.invoke(activity, new Object[]{null, null});
+            } else {
+                Method var8 = Activity.class.getDeclaredMethod("convertToTranslucent", translucentConversionListenerClazz);
+                var8.setAccessible(true);
+                var8.invoke(activity, new Object[]{null});
+            }
         } catch (Throwable t) {
         }
     }
